@@ -4,6 +4,11 @@
  */
 package com.mycompany.catering.Forms;
 
+//import com.mycompany.catering.Classes.ValidateBooking;
+import com.mycompany.catering.Classes.ValidateReg;
+import com.mycompany.catering.Databases.DatabaseManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author A243934
@@ -16,7 +21,7 @@ public class Register extends javax.swing.JFrame {
     public Register() {
         initComponents();
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,9 +38,7 @@ public class Register extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -43,6 +46,8 @@ public class Register extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -53,7 +58,7 @@ public class Register extends javax.swing.JFrame {
 
         jLabel2.setText("Last Name:");
 
-        jLabel3.setText("Username:");
+        jLabel3.setText("Email:");
 
         jLabel4.setText("Password:");
 
@@ -74,6 +79,11 @@ public class Register extends javax.swing.JFrame {
         jButton1.setText("Cancel");
 
         jButton2.setText("Register");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Telephone:");
 
@@ -103,11 +113,11 @@ public class Register extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField4)
                             .addComponent(jTextField3)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                             .addComponent(jTextField1)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(jPasswordField2)
+                            .addComponent(jPasswordField1))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -142,11 +152,11 @@ public class Register extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -164,6 +174,62 @@ public class Register extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String fname  = jTextField1.getText();
+        String lname  = jTextField2.getText();
+        String tphone    = jTextField6.getText();
+        String email  = jTextField3.getText();
+        boolean allValid = true;
+        String address = jTextArea1.getText();
+
+        String pwrd1 = new String(jPasswordField1.getPassword());
+        String pwrd2 = new String(jPasswordField2.getPassword());
+        
+    if (!ValidateReg.isValidFirstName(fname)) {
+        JOptionPane.showMessageDialog(this, "Invalid First Name", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.isValidLastName(lname)) {
+        JOptionPane.showMessageDialog(this, "Invalid Last Name", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.isValidAddress(address)) {
+        JOptionPane.showMessageDialog(this, "Address cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.isValidTelephone(tphone)) {
+        JOptionPane.showMessageDialog(this, "Invalid Telephone Number", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.isValidEmail(email)) {
+        JOptionPane.showMessageDialog(this, "Invalid Email", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.isValidPassword(pwrd1)) {
+        JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+    if (!ValidateReg.doPasswordsMatch(pwrd1, pwrd2)) {
+        JOptionPane.showMessageDialog(this, "Passwords 1 and 2 do not match", "Error", JOptionPane.ERROR_MESSAGE);
+        allValid = false;
+    }
+
+
+    if(allValid){
+       DatabaseManager dbm = new DatabaseManager();
+       dbm.insertClients(fname, lname, tphone, email, pwrd1, address);
+    }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,13 +279,13 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
